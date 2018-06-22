@@ -19,8 +19,9 @@ function onCheckInput() {
     hideSteps();
     var input = document.getElementById('userInput');
     var N = Number(input.value);
-    
-    myVar = setInterval(startProgram(N), 500);
+    if(checkInput(N)){
+        myVar = setInterval(startProgram(N), 500);
+    }
 }
 
 var myVar;
@@ -44,14 +45,19 @@ function startProgram(N) {
 function stopProgram() {
     clearInterval(myVar);
 
-    showListLabel();
+    showListLabel('Did ' + steps.length + (steps.length > 1 ? ' steps' : ' step'));
     showSteps();
 }
 
-function showListLabel() {
+function showListLabel(message) {
     var listLabel = document.getElementById("listLabel");
-    listLabel.innerText = 'Did ' + steps.length + (steps.length > 1 ? ' steps' : ' step');
+    listLabel.innerText = message;
     listLabel.style.display = "block";
+}
+
+function hideListLabel() {
+    var listLabel = document.getElementById("listLabel");
+    listLabel.style.display = "none";
 }
 
 function showSteps() {
@@ -74,11 +80,6 @@ function hideSteps() {
     }
 }
 
-function hideListLabel() {
-    var listLabel = document.getElementById("listLabel");
-    listLabel.style.display = "none";
-}
-
 function isPalindrome(value) {
     var result = value.toString();
     return result == result.split('').reverse().join('');
@@ -88,4 +89,14 @@ function reverseNumber(number) {
     var result = number.toString();
     result = result.split("").reverse().join("");
     return Number(result);
+}
+
+function checkInput(N) {
+    switch(N) {
+        case 196:
+            showListLabel("Ah nu nu nu nu");
+            return false;
+            break;
+    }
+    return true;
 }
